@@ -12,10 +12,10 @@ export async function generateStaticParams() {
 
 export default async function ProductPage({ params }: PageProps<"/product/[slug]">) {
   const { slug } = await params;
-  const session = await auth.api.getSession({ headers: await headers() });
-  if (!session) redirect(`/signin?callbackURL=${encodeURIComponent(`/product/${slug}`)}`);
   const product = await getProductBySlug(slug);
   if (!product) notFound();
+  const session = await auth.api.getSession({ headers: await headers() });
+  if (!session) redirect(`/signin?callbackURL=${encodeURIComponent(`/product/${slug}`)}`);
   const mins = product.markets.map((item) => item.min);
   const maxes = product.markets.map((item) => item.max);
   const minimum = Math.min(...mins);
