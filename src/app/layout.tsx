@@ -3,6 +3,7 @@ import { Noto_Sans_Bengali } from "next/font/google";
 import { Suspense } from "react";
 import CategoryNav from "@/components/layout/CategoryNav";
 import Navbar from "@/components/layout/Navbar";
+import PriceTicker from "@/components/layout/PriceTicker";
 import "./globals.css";
 
 const notoSansBengali = Noto_Sans_Bengali({
@@ -26,6 +27,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           }
         >
           <CategoryNav />
+        </Suspense>
+        <Suspense
+          fallback={<div className="h-10 bg-emerald-950" aria-hidden="true" />}
+        >
+          <PriceTicker />
         </Suspense>
         {children}
       </body>

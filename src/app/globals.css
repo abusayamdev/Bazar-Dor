@@ -19,3 +19,31 @@ body {
   color: var(--foreground);
   font-family: var(--font-noto-sans-bengali), sans-serif;
 }
+
+@keyframes price-ticker-scroll {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.price-ticker-track {
+  animation: price-ticker-scroll 40s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .price-ticker {
+    overflow-x: auto;
+  }
+
+  .price-ticker-track {
+    animation: none;
+  }
+
+  .price-ticker-copy {
+    display: none;
+  }
+}
