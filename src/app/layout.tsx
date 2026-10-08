@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Noto_Sans_Bengali } from "next/font/google";
+import Navbar from "@/components/layout/Navbar";
 import "./globals.css";
 
 const notoSansBengali = Noto_Sans_Bengali({
@@ -15,7 +16,10 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="bn" className={`${notoSansBengali.variable} h-full`}>
-      <body className="min-h-full antialiased">{children}</body>
+      <body className="flex min-h-full flex-col antialiased">
+        <Navbar />
+        {children}
+      </body>
     </html>
   );
 }
