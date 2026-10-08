@@ -26,19 +26,19 @@ export default function AuthForm({ mode }: { mode: "signin" | "signup" }) {
     try {
       if (isSignUp) {
         const result = await signUp.email({ name, email, password });
-        if (result.error) throw new Error(result.error.message);
+        if (result.error) throw new Error(result.error.message || "রেজিস্ট্রেশন করা যায়নি। ডেটাবেস সংযোগ পরীক্ষা করুন।");
         toast.success("রেজিস্ট্রেশন সফল হয়েছে");
         router.push("/signin");
       } else {
         const callbackURL = new URLSearchParams(window.location.search).get("callbackURL") || "/";
         const result = await signIn.email({ email, password, callbackURL });
-        if (result.error) throw new Error(result.error.message);
+        if (result.error) throw new Error(result.error.message || "সাইন ইন করা যায়নি। ইমেইল ও পাসওয়ার্ড পরীক্ষা করুন।");
         toast.success("সাইন ইন সফল হয়েছে");
         router.push(callbackURL);
         router.refresh();
       }
     } catch (error) {
-      toast.error(error instanceof Error ? error.message : "অনুরোধটি সম্পন্ন হয়নি");
+      toast.error(error instanceof Error && error.message ? error.message : "অনুরোধটি সম্পন্ন হয়নি");
     } finally { setPending(false); }
   }
 
