@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Noto_Sans_Bengali } from "next/font/google";
+import { Suspense } from "react";
+import CategoryNav from "@/components/layout/CategoryNav";
 import Navbar from "@/components/layout/Navbar";
 import "./globals.css";
 
@@ -18,6 +20,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html lang="bn" className={`${notoSansBengali.variable} h-full`}>
       <body className="flex min-h-full flex-col antialiased">
         <Navbar />
+        <Suspense
+          fallback={
+            <div className="h-16 border-b border-emerald-100 bg-white" aria-hidden="true" />
+          }
+        >
+          <CategoryNav />
+        </Suspense>
         {children}
       </body>
     </html>
