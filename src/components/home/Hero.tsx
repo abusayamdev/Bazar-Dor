@@ -37,6 +37,7 @@ export default function Hero() {
             height={320}
             priority
             className="relative h-auto w-64 drop-shadow-xl sm:w-80"
+            style={{ height: "auto" }}
           />
         </div>
       </div>

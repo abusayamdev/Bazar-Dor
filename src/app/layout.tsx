@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="bn" className={`${notoSansBengali.variable} h-full`}>
+    <html lang="bn" data-scroll-behavior="smooth" className={`${notoSansBengali.variable} h-full`}>
       <body className="flex min-h-full flex-col antialiased">
         <Navbar />
         <Suspense
