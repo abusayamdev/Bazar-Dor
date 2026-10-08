@@ -1,36 +1,77 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# বাজার দর (BazarDor)
 
-## Getting Started
+বাংলাদেশের নিত্যপ্রয়োজনীয় পণ্যের দৈনিক বাজারদর, দামের পরিবর্তন এবং বাজারভিত্তিক তুলনা দেখার জন্য একটি responsive Bengali web application।
 
-First, run the development server:
+## প্রযুক্তি
+
+- Next.js 16 App Router, React 19 এবং TypeScript
+- Tailwind CSS 4 ও DaisyUI 5
+- Better Auth ও MongoDB
+- Lucide React এবং React Hot Toast
+
+## প্রধান বৈশিষ্ট্য
+
+- API থেকে হালনাগাদ পণ্য ও ক্যাটাগরি
+- বাংলা সংখ্যা, মুদ্রা ও responsive product cards
+- ক্যাটাগরিভিত্তিক filtering এবং price sorting
+- দাম বৃদ্ধি ও হ্রাসের আলাদা তালিকা
+- বাজারভিত্তিক সর্বনিম্ন, সর্বোচ্চ ও গড় দাম
+- Email/password, Google ও GitHub authentication
+- Protected product details এবং profile routes
+- Responsive mobile navigation, loading, empty এবং error states
+
+## লোকাল সেটআপ
 
 ```bash
+git clone https://github.com/abusayamdev/Bazar-Dor.git
+cd Bazar-Dor
+npm install
+cp .env.example .env.local
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+তারপর [http://localhost:3000](http://localhost:3000) খুলুন।
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Environment variables
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+`.env.example` কপি করে `.env.local` তৈরি করুন।
 
-## Learn More
+```env
+MONGODB_URI=
+BETTER_AUTH_SECRET=
+BETTER_AUTH_URL=http://localhost:3000
+GOOGLE_CLIENT_ID=
+GOOGLE_CLIENT_SECRET=
+GITHUB_CLIENT_ID=
+GITHUB_CLIENT_SECRET=
+BAZARDOR_API_URL=https://api.abcz.workers.dev/api/bazardor
+```
 
-To learn more about Next.js, take a look at the following resources:
+`BETTER_AUTH_SECRET` একটি শক্তিশালী random secret হতে হবে। Google/GitHub provider ব্যবহার করতে সংশ্লিষ্ট OAuth app-এ callback URL হিসেবে নিচের URL দিন:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- `http://localhost:3000/api/auth/callback/google`
+- `http://localhost:3000/api/auth/callback/github`
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## API
 
-## Deploy on Vercel
+Default fallback API: `https://api.abcz.workers.dev/api/bazardor`
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- `GET /products`
+- `GET /products?category=chal`
+- `GET /products/:id`
+- `GET /categories`
+- `GET /categories/:slug`
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## যাচাই
+
+```bash
+npm run lint
+npm run build
+```
+
+## Deployment
+
+Vercel project settings-এ production environment variables যোগ করে repository deploy করুন। MongoDB Atlas ব্যবহার করলে Vercel runtime থেকে database access অনুমোদন করতে হবে।
+
+- Live link: _deployment-এর পর যোগ করুন_
+- Repository: https://github.com/abusayamdev/Bazar-Dor

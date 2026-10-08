@@ -4,6 +4,8 @@ import { Suspense } from "react";
 import CategoryNav from "@/components/layout/CategoryNav";
 import Navbar from "@/components/layout/Navbar";
 import PriceTicker from "@/components/layout/PriceTicker";
+import Footer from "@/components/layout/Footer";
+import { Toaster } from "react-hot-toast";
 import "./globals.css";
 
 const notoSansBengali = Noto_Sans_Bengali({
@@ -34,6 +36,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <PriceTicker />
         </Suspense>
         {children}
+        <Footer />
+        <Toaster position="top-center" />
       </body>
     </html>
   );

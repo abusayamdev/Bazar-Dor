@@ -20,6 +20,18 @@ body {
   font-family: var(--font-noto-sans-bengali), sans-serif;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
+button,
+a,
+input,
+select {
+  outline-color: #047857;
+  outline-offset: 3px;
+}
+
 @keyframes price-ticker-scroll {
   from {
     transform: translateX(0);

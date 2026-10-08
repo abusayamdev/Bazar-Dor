@@ -1,23 +1,14 @@
-import { Suspense } from "react";
+import { notFound } from "next/navigation";
+import CategoryProducts from "@/components/products/CategoryProducts";
+import { getCategories, getCategory, getProductsByCategory } from "@/lib/api";
 
-async function CategoryHeading({ params }: PageProps<"/category/[slug]">) {
-  const { slug } = await params;
-
-  return (
-    <div className="text-center">
-      <p className="text-sm font-semibold text-emerald-700">ক্যাটাগরি</p>
-      <h1 className="mt-2 text-4xl font-bold text-emerald-950">{slug}</h1>
-      <p className="mt-4 text-slate-600">এই ক্যাটাগরির পণ্য পরবর্তী ধাপে যোগ করা হবে।</p>
-    </div>
-  );
+export async function generateStaticParams() {
+  return (await getCategories()).map(({ slug }) => ({ slug }));
 }
 
-export default function CategoryPage(props: PageProps<"/category/[slug]">) {
-  return (
-    <main className="flex flex-1 items-center justify-center px-6 py-16">
-      <Suspense fallback={<p className="text-slate-500">ক্যাটাগরি লোড হচ্ছে…</p>}>
-        <CategoryHeading {...props} />
-      </Suspense>
-    </main>
-  );
+export default async function CategoryPage({ params }: PageProps<"/category/[slug]">) {
+  const { slug } = await params;
+  const [category, products] = await Promise.all([getCategory(slug), getProductsByCategory(slug)]);
+  if (!category) notFound();
+  return <main className="flex-1 py-14 sm:py-18"><div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8"><header className="mb-10 text-center"><span aria-hidden="true" className="text-5xl">{category.icon}</span><h1 className="mt-3 text-4xl font-bold text-emerald-950">{category.nameBn}</h1><p className="mt-3 text-slate-600">এই ক্যাটাগরির আজকের বাজারদর</p></header><CategoryProducts products={products} /></div></main>;
 }
